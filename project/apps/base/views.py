@@ -340,8 +340,15 @@ def search(request):
     return render(request, 'base/search.htm', context)
 
 
-def map_page(request):
-    photo = models.UploadedPhotos.objects.all()
+def map_ajax(request):
+    data = json.loads(request.body)
+    region = data['region'][:4] or ''
+
+    return JsonResponse({'region': region}, safe=False)
+
+
+def map_page(request, region):
+    photo = models.UploadedPhotos.objects.filter(Q(region__name__icontains=region))
 
     context = {'photos': photo}
     return render(request, 'base/map.htm', context)

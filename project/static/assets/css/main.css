@@ -578,26 +578,26 @@ footer{
 
 /* map */
 .map{
-margin-top:-50px;
-text-align: center;
-margin-bottom: 30px;
+    margin-top:-50px;
+    text-align: center;
+    margin-bottom: 30px;
 }
 
 .district{
-transition: filter 0.2s linear;
+    transition: filter 0.2s linear;
 }
 
 .district:hover{
-cursor: pointer;
-filter: brightness(0.93);
+    cursor: pointer;
+    filter: brightness(0.93);
 }
 
 .map_click_result{
-display: none;
+    display: none;
 }
 
 .district_name{
-text-align: center;
-font-size:28px;
-text-transform: uppercase;
+    text-align: center;
+    font-size:28px;
+    text-transform: uppercase;
 }

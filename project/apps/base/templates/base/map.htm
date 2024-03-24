@@ -2,6 +2,7 @@
 {% load static %}
 {% block title %} DOLOR | Main {% endblock%}
 {% block content %}
+    <input type="hidden" value="map">
     <div class="content">
         <div class="container">
             <div class="map">
@@ -328,19 +329,20 @@
                 <div class="photos_map_block">
                     <div class="row g-3">
                         {% for photo in photos %}
-                        <a href ="#" class="col-xl-2 col-md-3 col-sm-12">
-                            <div class="crop_box_img">
-                                <img class="published_img card-img-top" src="{{ photo.photo.url }}" alt="Card image cap">
-                            </div>
-                            <div class="index_published_img_info">
-                                <div class="user_photo_box">
-                                    <img src="{{ request.user.avatar.url }}" class="user_photo_img">
+                            <p class="district_name heading_txt">{{ photo.region.name }}</p>
+                            <a href ="{% url 'photo' photo.id %}" class="col-xl-2 col-md-3 col-sm-12">
+                                <div class="crop_box_img">
+                                    <img class="published_img card-img-top" src="{{ photo.photo.url }}" alt="Card image cap">
                                 </div>
-                                <div class="user_name">
-                                    <p>@{{ request.user }}</p>
+                                <div class="index_published_img_info">
+                                    <div class="user_photo_box">
+                                        <img src="{{ request.user.avatar.url }}" class="user_photo_img">
+                                    </div>
+                                    <div class="user_name">
+                                        <p>@{{ request.user }}</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
+                            </a>
                         {% endfor %}
                     </div>
                 </div>

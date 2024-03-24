@@ -14,7 +14,7 @@
                         <ul class="nav justify-content-center">
                             {% if request.user.is_authenticated %}
                                 <li class="nav-item ">
-                                    <a class="nav-link login_header_nav" href="{% url 'map' %}">Карта</a>
+                                    <a class="nav-link login_header_nav" href="{% url 'map' request.user.id %}">Карта</a>
                                 </li>
                             {% endif %}
                             <li class="nav-item">

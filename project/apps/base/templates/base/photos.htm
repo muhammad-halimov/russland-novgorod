@@ -11,16 +11,16 @@
                 {% if photo.album.status %}
                     <div class="row all_media_full">
                         <div class="col photo_view_full">
-                            <img src="uploads/{{ photo }}" alt="" class="photo_view_full_img" style="transform: scale(1) rotate({{ photo.rotation }}deg); filter: brightness({{ photo.brightness }}) contrast({{ photo.contrast }});">
+                            <img src="{{ photo.photo.url }}" alt="" class="photo_view_full_img" style="transform: scale(1) rotate({{ photo.rotation }}deg); filter: brightness({{ photo.brightness }}) contrast({{ photo.contrast }});">
                         </div>
                         <div class="col photo_view_information">
                             <div class="published_img_info">
                                 <div class="view_photo_user_img user_photo_box">
-                                    <img src="uploads/{{ photo.owner.avatar }}" class="user_photo_img">
+                                    <img src="{{ photo.owner.avatar.url }}" class="user_photo_img">
                                 </div>
                                 <div class="user_name view_user_name">
                                     <a href="{% url 'user_profile' photo.owner.id %}" class="heading_txt">@{{ photo.owner }}</a>
-                                    <a href="uploads/{{ photo }}" class="download_btn" download><img src="{% static 'assets/img/download.png' %}"></a>
+                                    <a href="{{ photo.photo.url }}" class="download_btn" download><img src="{% static 'assets/img/download.png' %}"></a>
                                 </div>
                             </div>
                             <div class="view_media_description">
