@@ -8,7 +8,7 @@
                 <img src="{% static 'assets/img/arrow_back.png' %}">
             </a>
             {% for video in videos %}
-                {% if video.album.status %}
+                {% if video.album.status or video %}
                     <div class="row all_media_full">
                         <div class="col carousel  photo_view_full">
                             <img src="{{ video.cover.url }}" class="pic photo_view_full_img" alt="" style="transform: scale(1) rotate({{ album.rotation }}deg); filter: brightness({{ album.brightness }}) contrast({{ album.contrast }});">

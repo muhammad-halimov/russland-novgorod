@@ -8,7 +8,7 @@
                 <img src="{% static 'assets/img/arrow_back.png' %}">
             </a>
             {% for photo in photos %}
-                {% if photo.album.status %}
+                {% if photo.album.status or photo %}
                     <div class="row all_media_full">
                         <div class="col photo_view_full">
                             <img src="{{ photo.reducted.url }}" alt="" class="photo_view_full_img" style="transform: scale(1) rotate({{ photo.rotation }}deg); filter: brightness({{ photo.brightness }}) contrast({{ photo.contrast }});">
