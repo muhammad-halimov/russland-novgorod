@@ -9,8 +9,6 @@ from .coreutils import detect_objects
 import re
 import json
 from django.http import JsonResponse
-import rawpy
-import imageio
 
 
 def main(request):
