@@ -23,7 +23,7 @@ class PhotoForm(ModelForm):
     class Meta:
         model = models.UploadedPhotos
         fields = '__all__'
-        exclude = ['owner', 'created', 'updated']
+        exclude = ['owner', 'reducted', 'created', 'updated']
         widgets = {
             'photo': forms.FileInput(attrs={'accept': 'image/*,.dng,.raw'}),
             'album': forms.Select(),

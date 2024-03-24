@@ -25,11 +25,11 @@
                         <div class="col photo_view_information">
                             <div class="published_img_info">
                                 <div class="view_photo_user_img user_photo_box">
-                                    <img src="uploads/{{ video.owner.avatar }}" class="user_photo_img">
+                                    <img src="{{ video.owner.avatar.url }}" class="user_photo_img">
                                 </div>
                                 <div class="user_name view_user_name">
                                     <a href="{% url 'user_profile' video.owner.id %}" class="heading_txt">@{{ video.owner }}</a>
-                                    <a href="uploads/{{ video }}" class="download_btn" download><img src="{% static 'assets/img/download.png' %}"></a>
+                                    <a href="{{ video.video.url }}" class="download_btn" download><img src="{% static 'assets/img/download.png' %}"></a>
                                 </div>
                             </div>
                             <div class="view_media_description">

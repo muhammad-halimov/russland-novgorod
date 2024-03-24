@@ -9,12 +9,15 @@ from .coreutils import detect_objects
 import re
 import json
 from django.http import JsonResponse
+import rawpy
+import imageio
 
 
 def main(request):
     photo = models.UploadedPhotos.objects.all()
+    video = models.UploadedVideos.objects.all()
 
-    context = {'photos': photo}
+    context = {'photos': photo, 'videos': video}
     return render(request, 'base/main.htm', context)
 
 
@@ -55,7 +58,7 @@ def registration_page(request):
         if form.is_valid():
             user = form.save(commit=False)
             user.username = user.username.lower()
-            user.save()
+            form.save()
             login(request, user)
             return redirect('main')
         else:
@@ -347,6 +350,7 @@ def map_ajax(request):
     return JsonResponse({'region': region}, safe=False)
 
 
+@login_required(login_url='login')
 def map_page(request, region):
     photo = models.UploadedPhotos.objects.filter(Q(region__name__icontains=region))
 

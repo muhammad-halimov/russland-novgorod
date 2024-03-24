@@ -11,7 +11,7 @@
                 {% if photo.album.status %}
                     <div class="row all_media_full">
                         <div class="col photo_view_full">
-                            <img src="{{ photo.photo.url }}" alt="" class="photo_view_full_img" style="transform: scale(1) rotate({{ photo.rotation }}deg); filter: brightness({{ photo.brightness }}) contrast({{ photo.contrast }});">
+                            <img src="{{ photo.reducted.url }}" alt="" class="photo_view_full_img" style="transform: scale(1) rotate({{ photo.rotation }}deg); filter: brightness({{ photo.brightness }}) contrast({{ photo.contrast }});">
                         </div>
                         <div class="col photo_view_information">
                             <div class="published_img_info">

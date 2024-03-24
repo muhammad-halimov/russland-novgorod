@@ -1,6 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from uuid import uuid4
+from io import BytesIO
+from PIL import Image
+from django.core.files import File
 
 
 class User(AbstractUser):
@@ -68,9 +72,31 @@ def get_photo_upload_path(instance, filename):
     return f"photos/{unique_filename}_{filename}"  # Путь для сохранения файла с использованием уникального значения
 
 
+def get_photo_reducted_upload_path(instance, filename):
+    unique_filename = str(uuid4())  # Генерируем случайное уникальное значение
+    return f"photos/reducted/{unique_filename}_{filename}"
+
+
+def compress(image):
+    im = Image.open(image)
+    im = im.convert("RGB")  # Преобразование изображения в режим RGB
+    im_io = BytesIO()
+    im.save(im_io, format='JPEG', quality=70)
+    resized_image = InMemoryUploadedFile(
+        im_io,
+        None,
+        f"{image.name.split('.')[0]}.jpg",  # Сохраняем в формате JPEG
+        'image/jpeg',
+        im_io.tell(),
+        None
+    )
+    return resized_image
+
+
 class UploadedPhotos(models.Model):
     owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     photo = models.ImageField(null=True, upload_to=get_photo_upload_path, default="ava1.jpg")
+    reducted = models.ImageField(null=True, upload_to=get_photo_reducted_upload_path, default="ava1.jpg")
     description = models.TextField(null=True, blank=True)
     tags = models.CharField(max_length=256, null=True, blank=True)
     album = models.ForeignKey(Albums, on_delete=models.SET_NULL, null=True, blank=True)
@@ -85,6 +111,14 @@ class UploadedPhotos(models.Model):
         ordering = ['-id', '-updated']
         verbose_name = 'Uploaded Photo'
         verbose_name_plural = 'Uploaded Photos'
+
+    def save(self, *args, **kwargs):
+        # call the compress function
+        new_image = compress(self.photo)
+        # set self.image to new_image
+        self.reducted = new_image
+        # save
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return str(self.photo)
