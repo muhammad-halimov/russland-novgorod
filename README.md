@@ -21,6 +21,10 @@
 ```
 python -m venv venv
 ```
+- Активировать виртулальную среду:
+```
+venv/Scripts/activate
+```
 - Дальше по инструкции:
 ```
 pip install -r requirements.txt
