@@ -42,9 +42,9 @@
         <div class="container">
             <div class="row g-3">
                 <h2>Всего найдено результатов:{{ general }}</h2>
-                <h2>Фото с тегами #{{ query }}: {{ photos.count }}</h2>
+                <h2>Фото с тегами #{{ full_query }}: {{ photos.count }}</h2>
                 {% for photo in photos %}
-                    {% if photo.album.status %}
+                    {% if photo.album.status or photo %}
                         <a href ="{% url 'photo' photo.id %}" class="col-xl-2 col-md-3 col-sm-12">
                             <div class="crop_box_img">
                                 <img class="published_img card-img-top" src="{{ photo.photo.url }}" alt="Card image cap" style="transform: scale(1) rotate({{ photo.rotation }}deg); filter: brightness({{ photo.brightness }}) contrast({{ photo.contrast }});">
@@ -62,9 +62,9 @@
                 {% endfor %}
             </div>
             <div class="row g-3">
-                <h2>Видео с тегами #{{ query }}: {{ videos.count }}</h2>
+                <h2>Видео с тегами #{{ full_query }}: {{ videos.count }}</h2>
                 {% for video in videos %}
-                    {% if video.album.status %}
+                    {% if video.album.status or video %}
                         <a href ="{% url 'video' video.id %}" class="col-xl-2 col-md-3 col-sm-12">
                             <div class="crop_box_img">
                                 <img class="published_img card-img-top" src="{{ video.cover.url }}" alt="Card image cap">
@@ -82,7 +82,7 @@
                 {% endfor %}
             </div>
             <div class="row g-3">
-                <h2>Альбомы с тегами #{{ query }}: {{ albums.count }}</h2>
+                <h2>Альбомы с тегами #{{ full_query }}: {{ albums.count }}</h2>
                 {% for album in albums %}
                     {% if album.status %}
                         <a href ="{% url 'album' album.id %}" class="col-xl-2 col-md-3 col-sm-12">

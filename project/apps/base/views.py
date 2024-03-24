@@ -327,6 +327,7 @@ def delete_album(request, pk):
 
 
 def search(request):
+    full_query = request.GET.get('query') if request.GET.get('query') else ''
     query = request.GET.get('query')[:4] if request.GET.get('query') else ''
 
     pattern = re.sub(r'[ _-]', r'[ _-]', query)
@@ -337,7 +338,13 @@ def search(request):
 
     general = int(photo.count() + video.count() + album.count())
 
-    context = {'photos': photo, 'videos': video, 'albums': album, 'query': query, 'general': general}
+    context = {
+        'photos': photo,
+        'videos': video,
+        'albums': album,
+        'full_query': full_query,
+        'general': general
+    }
     return render(request, 'base/search.htm', context)
 
 
