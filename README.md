@@ -17,6 +17,10 @@
 
 # Установка и запуск
 - Установить python
+- Создать виртулальную среду:
+```
+python -m venv venv
+```
 - Дальше по инструкции:
 ```
 pip install -r requirements.txt
