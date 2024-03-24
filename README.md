@@ -19,6 +19,12 @@
 - Установить python
 - Создать виртуальную среду:
 ```
+python3 - Linux/macOS
+python - Windows NT
+pip3 - Linux/macOS
+pip - Windows NT
+```
+```
 python -m venv venv
 ```
 - Активировать виртуальную среду:
