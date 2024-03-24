@@ -46,4 +46,4 @@ CTRL + C - для остановки сервера
 
 Лицензировано под лицензией:
 
-* MIT license (http://opensource.org/licenses/MIT)
+* GPL3 license (https://www.gnu.org/licenses/gpl-3.0.en.html)
