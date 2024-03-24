@@ -329,7 +329,7 @@
                 <div class="photos_map_block">
                     <div class="row g-3">
                         {% for photo in photos %}
-                            {% if photo.owner == request.user and photo.album.status %}
+                            {% if photo.owner == request.user and photo.album.status or photo %}
                                 <p class="district_name heading_txt">{{ photo.region.name }}</p>
                                 <a href ="{% url 'photo' photo.id %}" class="col-xl-2 col-md-3 col-sm-12">
                                     <div class="crop_box_img">
@@ -337,10 +337,10 @@
                                     </div>
                                     <div class="index_published_img_info">
                                         <div class="user_photo_box">
-                                            <img src="{{ request.user.avatar.url }}" class="user_photo_img">
+                                            <img src="{{ photo.owner.avatar.url }}" class="user_photo_img">
                                         </div>
                                         <div class="user_name">
-                                            <p>@{{ request.user }}</p>
+                                            <p>@{{ photo.owner }}</p>
                                         </div>
                                     </div>
                                 </a>

@@ -23,7 +23,10 @@ python -m venv venv
 ```
 - Активировать виртуальную среду:
 ```
-venv/Scripts/activate
+venv/Scripts/activate - Windows 
+```
+```
+source venv/bin/activate - GNU/Linux & macOS/BSD
 ```
 - Дальше по инструкции:
 ```
@@ -47,3 +50,9 @@ CTRL + C - для остановки сервера
 Лицензировано под лицензией:
 
 * GPL3 license (https://www.gnu.org/licenses/gpl-3.0.en.html)
+
+## Целевая ОС
+
+- Windows NT 10/11
+- GNU/Linux - дистрибутивы
+- BSD/Mach - macOS
