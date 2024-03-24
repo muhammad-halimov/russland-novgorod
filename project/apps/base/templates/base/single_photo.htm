@@ -1,0 +1,40 @@
+{% extends 'index.htm' %}
+{% load static %}
+{% block title %} DOLOR | Фото {% endblock %}
+{% block content %}
+    <div class="content padding_content">
+        <div class="container">
+            <a href="{{ request.META.HTTP_REFERER }}" class="arrow_back">
+                <img src="{% static 'assets/img/arrow_back.png' %}">
+            </a>
+            <div class="row">
+                <div class="col photo_view_full">
+                    <img src="{{ photo.photo.url }}" alt="" class="photo_view_full_img" style="transform: scale(1) rotate({{ photo.rotation }}deg); filter: brightness({{ photo.brightness }}) contrast({{ photo.contrast }});">
+                </div>
+                <div class="col photo_view_information">
+                    <div class="published_img_info">
+                        <div class="view_photo_user_img user_photo_box">
+                            <img src="{{ photo.owner.avatar.url }}" class="user_photo_img">uploads/
+                        </div>
+                        <div class="user_name view_user_name">
+                            <a href="{% url 'user_profile' photo.owner.id %}" class="heading_txt">@{{ photo.owner }}</a>
+                            <a href="{{ photo.photo.url }}" class="download_btn" download><img src="{% static 'assets/img/download.png' %}"></a>
+                        </div>
+                    </div>
+                    <div class="view_media_description">
+                        <!-- если пользователь является создателем фото (то ему доступна кнопка редактирования)-->
+                        {% if request.user == photo.owner %}
+                        <a href="{% url 'edit_photo' photo.id %}"><img src="{% static 'assets/img/edit.svg' %}" class="edit_btn"></a>
+                        {% endif %}
+                        {{ photo.description }}
+                    </div>
+                    <div class="view_photo_hashtag_str grey_txt">
+                        <p>{{ photo.tags }}</p>
+                    </div>
+                    <div class="view_photo_album_str grey_txt">Альбом: {% if photo.album is None %} Без альбома {% else %} {{ photo.album }} {% endif %}</div>
+                    <div class="view_photo_album_str grey_txt">Округ: {% if photo.region is None %} Н/У {% else %} {{ photo.region }} {% endif %}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

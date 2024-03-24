@@ -1,0 +1,68 @@
+{% extends 'index.htm' %}
+{% load static %}
+{% block title %} DOLOR | Профиль {% endblock %}
+{% block content %}
+    <div class="content padding_content">
+        <div class="container">
+            <div class="about_profile">
+                <div class="profile_photo_box">
+                    <div>
+                        <img src="{{ user.avatar.url }}" class="profile_photo_img">
+                    </div>
+                </div>
+                {% if request.user == user %}
+                    <a href="{% url 'edit_profile' request.user.id %}" class="profile_name heading_txt">@{{ request.user.login }}<img src="{% static 'assets/img/edit.svg' %}" class="edit_btn"></a>
+                {% else %}
+                    <p class="profile_name heading_txt">@{{ user.login }}</p>
+                {% endif %}
+            </div>
+
+            <div class="proile_albums_block">
+                <div class="profile_link_and_plus_block"><p class="small_heading_txt">Альбомы</p>{% if request.user == user %}<a href="{% url 'create_album' %}"><span class="plus">+</span></a>{% endif %}</div>
+                <div class="publications">
+                    <div class="row g-3">
+                        {% for album in user_albums %}
+                            <a href ="{% url 'album' album.id %}" class="col-xl-2 col-md-3 col-sm-12">
+                                <div class="published_album crop_box_img">
+                                    <img class="published_album_img published_img card-img-top" src="{{ album.photo.url }}" alt="Card image cap" style="transform: scale(1) rotate({{ album.rotation }}deg); filter: brightness({{ album.brightness }}) contrast({{ album.contrast }});">
+                                    <div class="album_name small_white_txt">{{ album.title }}</div>
+                                </div>
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="proile_photos_block">
+                <div class="profile_link_and_plus_block"><p class="small_heading_txt">Фото</p>{% if request.user == user %}<a href="{% url 'upload_photo' %}"><span class="plus">+</span></a>{% endif %}</div>
+                <div class="publications">
+                    <div class="row g-3">
+                        {% for photo in user_photos %}
+                            <a href ="{% url 'photo' photo.id %}" class="col-xl-2 col-md-3 col-sm-12">
+                                <div class="crop_box_img">
+                                    <img class="published_img card-img-top" src="{{ photo.photo.url }}" alt="Card image cap" style="transform: scale(1) rotate({{ photo.rotation }}deg); filter: brightness({{ photo.brightness }}) contrast({{ photo.contrast }});">
+                                </div>
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="proile_video_block">
+                <div class="profile_link_and_plus_block"><p class="small_heading_txt" href="#">Видео</p>{% if request.user == user %}<a href="{% url 'upload_video' %}"><span class="plus">+</span></a>{% endif %}</div>
+                <div class="publications">
+                    <div class="row g-3">
+                        {% for video in user_videos %}
+                            <a href ="{% url 'video' video.id %}" class="col-xl-2 col-md-3 col-sm-12">
+                                <div class="crop_box_img">
+                                    <img class="published_video published_album_img card-img-top" src="{{ video.cover.url }}">
+                                    <img class="play_btn " src="{% static 'assets/img/playbtn1.png' %}">
+                                </div>
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

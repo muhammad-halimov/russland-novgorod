@@ -1,0 +1,42 @@
+{% extends 'index.htm' %}
+{% load static %}
+{% block title %} DOLOR | Создать альбом {% endblock %}
+{% block content %}
+    <div class="content">
+        <form class="container add_review_block" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="add_photo_background_block new_album_block">
+                <div class="inner_add_photo_background_block">
+                    <p class="heading_txt">Создать новый альбом</p>
+                    <label class="input-file">
+                        {{ form.photo }}
+                        <span class="btn">Выбрать обложку</span>
+                    </label>
+                    <p class="label">Название:</p>
+                    {{ form.title }}
+                    <p class="label">Описание:</p>
+                    {{ form.description }}
+                    <label class="w-100 my-2">{{ form.status }} Публичный альбом</label>
+                    <p class="label">Соавторы:</p>
+                    {{ form.coauthors }}
+                    <input class="btn upload_button" type="submit" id="send-button" value="Готово">
+                </div>
+            </div>
+            <!-- РЕДАКТОР БЛОк -->
+            <div class="edit_review_photo_block">
+                <div class="photo_review_block" id="photo_review_block_img"> </div>
+                <p class="grey_txt about_profile my-2">Используй колесико мыши для масштабирования и ПКМ для перемещения</p>
+                <div class="editor_block">
+                    <p>Яркость:</p>
+                    <input type="range" name="brightness" id="brightness-range" class="range" value="1.0" max="2.0" min="0.0" step="0.005">
+                    <p>Контрастность:</p>
+                    <input type="range" name="contrast" id="contrast-range" class="range" value="1.0" max="2.0" min="0.0" step="0.005">
+                    <p>Поворот:</p>
+                    <input type="range" name="rotation" id="rotation-range" class="range" value="0" max="360" min="0" step="1">
+                </div>
+            </div>
+            <!-- РЕДАКТОР БЛОк -->
+        </form>
+    </div>
+    <script defer type="text/javascript" rel="script" src="{% static 'assets/js/script_add_photo.js' %}"></script>
+{% endblock %}

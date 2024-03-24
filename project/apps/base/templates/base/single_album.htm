@@ -1,0 +1,57 @@
+{% extends 'index.htm' %}
+{% load static %}
+{% block title %} DOLOR | Альбомы {% endblock %}
+{% block content %}
+    <div class="content padding_content">
+        <div class="container">
+            <a href="{{ request.META.HTTP_REFERER }}" class="arrow_back">
+                <img src="{% static 'assets/img/arrow_back.png' %}">
+            </a>
+            <div class="row">
+                <div class="col carousel  photo_view_full">
+                    <img src="{{ album.photo.url}}" class="pic photo_view_full_img" alt="">
+                    {% for photo in album.uploadedphotos_set.all %}
+
+                        {% for video in album.uploadedvideos_set.all %}
+                            <video class="pic photo_view_full_img" autoplay muted loop src="{{ video.video.url }}"></video>
+                        {% endfor %}
+                    {% endfor %}
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev" id="back">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next" id="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+
+                </div>
+
+                <div class="col photo_view_information">
+                    <div class="published_img_info">
+                        <div class="view_photo_user_img user_photo_box">
+                            <img src="{{ album.owner.avatar.url }}" class="user_photo_img">
+                        </div>
+                        <div class="user_name view_user_name">
+                            <a href="{% url 'user_profile' album.owner.id %}" class="heading_txt">@{{ album.owner }}</a>
+                            <a href="" class="download_btn" download><img src="{% static 'assets/img/download.png' %}"></a>
+                        </div>
+                    </div>
+                    <div class="view_album_name heading_txt my-2">
+                        {{ album.title }}
+                        <!-- если пользователь является создателем альбома (то ему доступна кнопка редактирования)-->
+                        {% if request.user == album.owner %}
+                            <a href="{% url 'edit_album' album.id %}"><img src="{% static 'assets/img/edit.svg' %}" class="edit_btn"></a>
+                        {% endif %}
+                    </div>
+                    <div class="view_media_description">{{ album.description }}</div>
+                    <div class="view_media_description">Соавторы: {% for coauthors in album.coauthors.all %} |{{ coauthors.username }}| {% endfor %}</div>
+                    <div class="view_photo_hashtag_str grey_txt">
+                        <p>{{ album.tags }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script defer type="text/javascript" rel="script" src="{% static 'assets/js/script_slider.js' %}"></script>
+{% endblock %}

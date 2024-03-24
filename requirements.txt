@@ -1,0 +1,8 @@
+django==4.2.9
+pillow
+django-jazzmin
+supervision
+opencv-python
+ultralytics
+djangorestframework
+django-cors-headers

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="{% static 'assets/css/main.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/img/favicon.ico' %}" rel="shortcut icon" type="image"/>
+    <title>DOLOR | Поиск</title>
+</head>
+<body>
+<div class="wrap">
+    <div class="header">
+        <div class="container">
+            <div class="row header_block">
+                <div class="col-4">
+                    <div class="logo">
+                        <a href="{% url 'main' %}">
+                            <img class="logo_img" src="{% static 'assets/img/logo.png' %}">
+                        </a>
+                    </div>
+                </div>
+                <!-- ПОЛЕ ПОИСКА -->
+                <div class="col-4">
+                    <div class="search navigation_search">
+                        <form action="{% url 'search' %}" method="get" class="search__form justify-content-center">
+                            <label class="search__label">
+                                <input id="search" class="search__input" type="search" name="query" placeholder="Поиск по тегам (без #)">
+                                <input id="btn_search" type="submit" value="OK">
+                            </label>
+                        </form>
+                    </div>
+                    <!-- ПОЛЕ ПОИСКА -->
+                </div>
+                <div class="col-4"> </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="container">
+            <div class="row g-3">
+                <h2>Всего найдено результатов:{{ general }}</h2>
+                <h2>Фото с тегами #{{ query }}: {{ photos.count }}</h2>
+                {% for photo in photos %}
+                    {% if photo.album.status %}
+                        <a href ="{% url 'photo' photo.id %}" class="col-xl-2 col-md-3 col-sm-12">
+                            <div class="crop_box_img">
+                                <img class="published_img card-img-top" src="{{ photo.photo.url }}" alt="Card image cap" style="transform: scale(1) rotate({{ photo.rotation }}deg); filter: brightness({{ photo.brightness }}) contrast({{ photo.contrast }});">
+                            </div>
+                            <div class="published_img_info">
+                                <div class="user_photo_box">
+                                    <img src="{{ photo.owner.avatar.url }}" class="user_photo_img">
+                                </div>
+                                <div class="user_name">
+                                    <p>@{{ photo.owner }}</p>
+                                </div>
+                            </div>
+                        </a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="row g-3">
+                <h2>Видео с тегами #{{ query }}: {{ videos.count }}</h2>
+                {% for video in videos %}
+                    {% if video.album.status %}
+                        <a href ="{% url 'video' video.id %}" class="col-xl-2 col-md-3 col-sm-12">
+                            <div class="crop_box_img">
+                                <img class="published_img card-img-top" src="{{ video.cover.url }}" alt="Card image cap">
+                            </div>
+                            <div class="published_img_info">
+                                <div class="user_photo_box">
+                                    <img src="{{ video.owner.avatar.url }}" class="user_photo_img">
+                                </div>
+                                <div class="user_name">
+                                    <p>@{{ video.owner }}</p>
+                                </div>
+                            </div>
+                        </a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="row g-3">
+                <h2>Альбомы с тегами #{{ query }}: {{ albums.count }}</h2>
+                {% for album in albums %}
+                    {% if album.status %}
+                        <a href ="{% url 'album' album.id %}" class="col-xl-2 col-md-3 col-sm-12">
+                            <div class="crop_box_img">
+                                <img class="published_img card-img-top" src="{{ album.photo.url }}" alt="Card image cap" style="transform: scale(1) rotate({{ album.rotation }}deg); filter: brightness({{ album.brightness }}) contrast({{ album.contrast }});">
+                            </div>
+                            <div class="published_img_info">
+                                <div class="user_photo_box">
+                                    <img src="{{ album.owner.avatar.url }}" class="user_photo_img">
+                                </div>
+                                <div class="user_name">
+                                    <p>@{{ album.owner }}</p>
+                                </div>
+                            </div>
+                        </a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% include 'footer.htm' %}
+</div>
+</body>

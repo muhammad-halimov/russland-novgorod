@@ -1,0 +1,21 @@
+{% load static %}
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-10 nav_footer_left">
+                <ul class="nav nav_footer">
+                    <a class="white_a" href="#">Сотрудничество</a>
+                    <a class="white_a" href="#">О нас</a>
+                    <a class="white_a" href="#">Блог</a>
+                </ul>
+            </div>
+            <div class="col-2 nav_footer_right">
+                {% if request.user.is_authenticated %}
+                    <a class="white_a" id="logout-link" href="{% url 'logout' %}">Выход</a>
+                {% else %}
+                    <a class="white_a" href="{% url 'login' %}">Вход/регистрация</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</footer>

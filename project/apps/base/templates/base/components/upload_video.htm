@@ -1,0 +1,36 @@
+{% extends 'index.htm' %}
+{% load static %}
+{% block title %} DOLOR | Загрузить видео{% endblock %}
+{% block content %}
+    <div class="content">
+        <div class="container add_review_block">
+            <div class="add_photo_background_block">
+                <div class="inner_add_photo_background_block">
+                    <p class="heading_txt">Добавить новое видео</p>
+                    <form action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <label class="input-file">
+                            {{ form.cover }}
+                            <span class="btn">Выбрать обложку</span>
+                        </label>
+                        <label class="input-file" style="margin-top: 10px">
+                            {{ form.video }}
+                            <span class="btn">Выбрать видео</span>
+                        </label>
+                        <p class="label">Описание:</p>
+                        {{ form.description }}
+                        <p class="label">Альбом:</p>
+                        {{ form.album }}
+                        <p class="label">Округ:</p>
+                        {{ form.region }}
+                        <input class="btn upload_button" type="submit" value="Готово">
+                    </form>
+                </div>
+            </div>
+            <div class="photo_review_block review_block">
+                <video id="video_review_block" autoplay loop></video>
+            </div>
+        </div>
+    </div>
+    <script defer type="text/javascript" rel="script" src="{% static 'assets/js/script_add_video.js' %}"></script>
+{% endblock %}

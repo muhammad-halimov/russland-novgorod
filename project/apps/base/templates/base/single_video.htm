@@ -1,0 +1,40 @@
+{% extends 'index.htm' %}
+{% load static %}
+{% block title %} DOLOR | Видео {% endblock %}
+{% block content %}
+    <div class="content padding_content">
+        <div class="container">
+            <a href="{{ request.META.HTTP_REFERER }}" class="arrow_back">
+                <img src="{% static 'assets/img/arrow_back.png' %}">
+            </a>
+            <div class="row">
+                <div class="col photo_view_full">
+                    <video class=" photo_view_full_img" autoplay muted loop src="{{ video.video.url }}"></video>
+                </div>
+                <div class="col photo_view_information">
+                    <div class="published_img_info">
+                        <div class="view_photo_user_img user_photo_box">
+                            <img src="{{ video.owner.avatar.url }}" class="user_photo_img">
+                        </div>
+                        <div class="user_name view_user_name">
+                            <a href="{% url 'user_profile' video.owner.id %}" class="heading_txt">@{{ video.owner }}</a>
+                            <a href="{{ video.video.url }}" class="download_btn" download><img src="{% static 'assets/img/download.png' %}"></a>
+                        </div>
+                    </div>
+                    <div class="view_media_description">
+                        <!-- если пользователь является создателем видео (то ему доступна кнопка редактирования)-->
+                        {% if request.user == video.owner %}
+                            <a href="{% url 'edit_video' video.id %}"><img src="{% static 'assets/img/edit.svg' %}" class="edit_btn"></a>
+                        {% endif %}
+                        {{ video.description }}
+                    </div>
+                    <div class="view_photo_hashtag_str grey_txt">
+                        <p>{{ video.tags }}</p>
+                    </div>
+                    <div class="view_photo_album_str grey_txt">Альбом: {% if video.album is None %} Без альбома {% else %} {{ video.album }} {% endif %}</div>
+                    <div class="view_photo_album_str grey_txt">Округ: {% if video.region is None %} Н/У {% else %} {{ video.region }} {% endif %}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

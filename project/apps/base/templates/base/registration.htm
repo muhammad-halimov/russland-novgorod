@@ -1,0 +1,39 @@
+{% extends 'index.htm' %}
+{% load static %}
+{% block title %} DOLOR | Регистрация {% endblock %}
+{% block content %}
+    <div class="content">
+        <div class="container">
+            <div class="reg_background_block">
+                {% if messages %}
+                    {% for message in messages %}
+                        <p class="heading_txt">{{ message }}</p>
+                    {% endfor %}
+                {% else %}
+                    <p class="heading_txt">Впервые? Тебе здесь понравится</p>
+                {% endif %}
+                <form method="post" id="reg_form">
+                    {% csrf_token %}
+                    <p class="label">Имя:</p>
+                    {{ form.username }}
+                    <p class="form_p" id="login_p"><!--Введите корректный логин--></p>
+                    <p class="label">Email:</p>
+                    {{ form.email }}
+                    <p class="form_p" id="name_p"><!--Введите корректное имя--></p>
+                    <p class="label">Логин:</p>
+                    {{ form.login }}
+                    <p class="form_p" id="email_p"><!--Введите корректную почту--></p>
+                    <p class="label">Пароль:</p>
+                    {{ form.password1 }}
+                    <p class="form_p" id="password_p"><!--Слишком короткий пароль--></p>
+                    <p class="label">Пароль еще раз:</p>
+                    {{ form.password2 }}
+                    <p class="form_p" id="password_repeat_p"><!--Пароли не совпадают--></p>
+                    <p><input type="checkbox" id="rules" class="area" required>Согласие с правилами регистрации</p>
+                    <input type="submit" value="Зарегистрироваться" id="btn" class="btn">
+                    <p class="link">Уже есть аккаунт? <a href="{% url 'login' %}"><span>Войди</span></a></p>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

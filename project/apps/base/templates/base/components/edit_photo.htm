@@ -1,0 +1,48 @@
+{% extends 'index.htm' %}
+{% load static %}
+{% block title %} DOLOR | Редактировать фото {% endblock %}
+{% block content %}
+    <div class="content">
+        <form class="container add_review_block" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="add_photo_background_block">
+                <div class="inner_add_photo_background_block">
+                    <p class="heading_txt">Редактировать фото</p>
+                    <label class="input-file">
+                        {{ form.photo }}
+                        <span class="btn">Выбрать новое фото</span>
+                    </label>
+                    <p class="label">Описание:</p>
+                    {{ form.description }}
+                    <!-- <label><input type="checkbox" name="photo_is_public[]" value="1"> Публичное</label> -->
+                    <p class="label">Теги (через запятую):</p>
+                    {{ form.tags }}
+                    <p class="label">Альбом:</p>
+                    {{ form.album }}
+                    <p class="label">Округ:</p>
+                    {{ form.region }}
+                    <input class="btn upload_button" type="submit" value="Готово"> <br>
+                    <a href="{% url 'delete_photo' photo.id %}" id="delete-link" class="delete_link"><img src="{% static 'assets/img/delete.svg' %}">Удалить фото</a>
+                </div>
+            </div>
+            <!-- РЕДАКТОР БЛОк -->
+            <div class="edit_review_photo_block">
+                <div class="photo_review_block" id="photo_review_block_img">
+                    <img alt="" src="{{ photo.photo.url }}" style="transform: scale(1) rotate({{ photo.rotation }}deg); filter: brightness({{ photo.brightness }}) contrast({{ photo.contrast }});"/>
+                </div>
+                <p class="grey_txt about_profile my-2">Используй колесико мыши для масштабирования и ПКМ для перемещения</p>
+                <div class="editor_block">
+                    <!-- нужно ли сюда form? -->
+                    <p>Яркость:</p>
+                    <input type="range" name="brightness" id="brightness-range" class="range" value="{{ photo.brightness }}" max="2.0" min="0.0" step="0.005">
+                    <p>Контрастность:</p>
+                    <input type="range" name="contrast" id="contrast-range" class="range" value="{{ photo.contrast }}" max="2.0" min="0.0" step="0.005">
+                    <p>Поворот:</p>
+                    <input type="range" name="rotation" id="rotation-range" class="range" value="{{ photo.rotation }}" max="360" min="0" step="1">
+                </div>
+            </div>
+            <!-- РЕДАКТОР БЛОк -->
+        </form>
+    </div>
+    <script defer type="text/javascript" rel="script" src="{% static 'assets/js/script_add_photo.js' %}"></script>
+{% endblock %}

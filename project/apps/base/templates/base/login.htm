@@ -1,0 +1,31 @@
+{% extends 'index.htm' %}
+{% load static %}
+{% block title %} DOLOR | Авторизация {% endblock %}
+{% block content %}
+    <div class="content">
+        <div class="container">
+            <div class="login_background_block">
+                <div class="inner_login_background_block">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <p class="heading_txt">{{ message }}</p>
+                        {% endfor %}
+                    {% else %}
+                        <p class="heading_txt">Привет! Кто здесь?</p>
+                    {% endif %}
+                    <form method="post">
+                        {% csrf_token %}
+                        <p class="label">Эл. Почта</p>
+                        <input type="text" placeholder="Эл. Почта" name="email" id="login"  title="Введите вашу почту" class="area" required>
+                        <p class="form_p" id="login_p"><!--Введите корректный логин--></p>
+                        <p class="label">Пароль:</p>
+                        <input type="password" placeholder="Пароль" name="password" id="password" title="Введите ваш пароль" class="area" required>
+                        <p class="form_p" id="password_p"><!--Слишком короткий пароль--></p>
+                        <input type="submit" value="Войти" id="btn" class="btn">
+                        <p class="link">Нет аккаунта? <a href="{% url 'registration' %}"><span>Зарегистрируйся</span></a></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
