@@ -127,8 +127,8 @@ def edit_profile(request, pk):
     if request.method == 'POST':
         if form.is_valid():
             form.avatar_brightness = request.POST.get('brightness')
-            photo.avatar_contrast = request.POST.get('contrast')
-            photo.avatar_rotation = request.POST.get('rotation')
+            form.avatar_contrast = request.POST.get('contrast')
+            form.avatar_rotation = request.POST.get('rotation')
             form.save()
             return redirect('user_profile', pk=user.id)
 
