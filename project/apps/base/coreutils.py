@@ -1,6 +1,3 @@
-import requests
-
-
 def detect_objects(image_path):
     related_path = image_path
 
@@ -48,7 +45,7 @@ def detect_objects(image_path):
     return cleaned
 
 
-if "__name__" == "__main__":
+if __name__ == "__main__":
     path = '../../static/uploads/photos/f09afbff-e85e-4ece-8704-899f8dbb9086_ww.jpg'
     result = detect_objects(path)
 
